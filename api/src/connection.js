@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 
 const User = require("./User.model");
-
+const Product = require("./Product.model");
+const Cart = require("./Cart.model");
 const connection = "mongodb://mongo:27017/mongo-test";
 
 const connectDb = () => {

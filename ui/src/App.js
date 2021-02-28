@@ -7,11 +7,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {  faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 
 import { NavigationBar } from "./components/Navbar"
-
+import { Products } from "./components/Products"
+import { TodoListCard } from "./components/ToDoListCard"
+import { ProductCard } from "./components/ProductCard"
 //CSS
 import './App.css';
+import {Container, Row, Col} from "react-bootstrap"
 
 const apiUrl = `http://localhost:8080`;
+
 
 export const Beverage = () => (
   <div>
@@ -22,10 +26,20 @@ export const Beverage = () => (
 
 
 class App extends Component {
+
+  
+  
   state = {
-    users: []
+    users: [],
+    products: [],
+    cart: []
   };
 
+
+
+
+  
+  /*
   async createUser() {
     await axios.get(apiUrl + '/user-create');
     this.loadUsers();
@@ -37,10 +51,36 @@ class App extends Component {
       users: res.data
     });
   }
+  */
+
+
+  async getProducts() {
+    await this.init(5);
+  }
 
   componentDidMount() {
-    this.loadUsers();
+    this.getProducts();
   }
+
+  init(n){
+
+    var data = [];
+    for(var i = 0; i <  n; i++){
+      var product = (
+        { id: i+1 , 
+          name: "Toy",
+          description: "This is a toy",
+          price: 50 * (i + 1)
+        });
+  
+        data.push(product);
+    }
+    this.setState({
+      products: data
+    });
+  }
+  
+
 
   render() {
     return (
@@ -48,14 +88,18 @@ class App extends Component {
         <NavigationBar />
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <Beverage></Beverage>
-          <button onClick={() => this.createUser()}>Create User</button>
-          <p>Users list:</p>
-          <ul>
-            {this.state.users.map(user => (
-              <li key={user._id}>id: {user._id}</li>
-            ))}
-          </ul>
+          <Container>
+            <Row>
+              {
+              this.state.products.map(product => (
+                <Col md={{ offset: 3, span: 6 }}>
+                    <ProductCard name={product.name} price={product.price} description={product.description}/>
+                </Col>
+
+              ))}
+              
+            </Row>
+        </Container>
         </header>
       </div>
     );
