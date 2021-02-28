@@ -8,24 +8,44 @@ import {
 
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import Button from 'react-bootstrap/Button';
 
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/Form';
+import Badge from 'react-bootstrap/Badge';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {  faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+
+import  Cart  from "./Cart"
+import  Product  from "./Products"
 
 
-export const NavigationBar = () => {
+export const CartButton = () => (
+    <Link to="/cart">
+        <Button variant="primary" onclick="">
+            Cart <FontAwesomeIcon icon={faShoppingCart}/> <Badge variant="light">{getCartSize()}</Badge>
+            <span className="sr-only">unread messages</span>
+        </Button>
+    </Link>
+    
+  )
+
+
+export const NavBar = () => {
+
+
         return (
         <Router>
-          <Navbar bg="light" expand="lg">
+          <Navbar bg="dark" variant="dark" expand="lg">
           <Link to="/"><Navbar.Brand href="#home">Shopping Cart</Navbar.Brand></Link>
+          <CartButton></CartButton>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
               <Link to="/about"><Nav.Link href="#about">About</Nav.Link></Link>
               <Link to="/users"><Nav.Link href="#users">Users</Nav.Link></Link>
             </Nav>
+           
             <Form inline>
             <FormControl type="text" placeholder="Search" className=" mr-sm-2" />
               <Button type="submit">Submit</Button>
@@ -33,13 +53,16 @@ export const NavigationBar = () => {
           </Navbar.Collapse>
         </Navbar>
         <Switch>
-        <Route path="/about">
-          <About />
+        <Route path="/products" exact="/products" component={Product}>
+          <Product />
         </Route>
         <Route path="/users">
           <Users />
         </Route>
-        <Route path="/">
+        <Route path="/cart" exact="/cart" component={Cart}>
+          <Cart />
+        </Route>
+        <Route path="/" >
           <Home />
         </Route>
       </Switch>
@@ -84,6 +107,11 @@ export const Navbar = () => {
   )
 }
 */
+
+function getCartSize() {
+    //get actual cart size
+    return 10;
+}
 
 function Home() {
     return "";

@@ -14,6 +14,7 @@ import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/Form';
 
 import NumberFormat from 'react-number-format';
+import NumericInput from 'react-numeric-input';
 class ProductCard extends Component {
 
 
@@ -43,7 +44,7 @@ class ProductCard extends Component {
           
           
             <Card
-              bg="info"
+              bg="dark"
               text="white"
               className="mb-3"
 
@@ -56,14 +57,16 @@ class ProductCard extends Component {
               {this.props.description}
             </Card.Text>*/
             }
-            <Card.Text>
+            <Card.Title>
             <NumberFormat value={this.props.price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
-            </Card.Text>
+            </Card.Title>
+
             <Button variant="danger" onClick={() => this.addToCart()}>Add to Cart</Button>
             {
               /*<Button variant="primary" onClick={() => this.updateQuantity(1)}>Update</Button>*/
             }
-
+         
+         
           </Card.Body>
         </Card>
         )

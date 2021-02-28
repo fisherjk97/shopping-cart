@@ -2,18 +2,25 @@ import React, { useState, useEffect, Component } from "react";
 
 const apiUrl = `http://localhost:8080`;
 
-class Products extends Component {
+class Cart extends Component {
 
     state = {
         cart: []
     };
 
-   
-    addToCart() {
+    getCart(){
+        return this.state.cart;
+    }
+
+    getCartSize() {
         //get actual cart size
         return 10;
     }
 
+    updateQuantity() {
+        //get actual cart size
+        return 10;
+    }
 
   render(){
   return (
@@ -48,7 +55,7 @@ class Products extends Component {
                         />
                         <div className="card-img-overlay align-items-center">
                           <button
-                            onClick={(e) => this.addToCart(product._id, 1)}
+                            onClick={(e) => this.updateQuantity(product._id, 1)}
                             className="btn btn-md btn-info"
                           >
                             Add to cart
@@ -80,4 +87,4 @@ class Products extends Component {
 };
 }
 
-export default Products;
+export default Cart;

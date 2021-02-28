@@ -6,9 +6,7 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {  faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 
-import { NavigationBar } from "./components/Navbar"
-import { Products } from "./components/Products"
-import { TodoListCard } from "./components/ToDoListCard"
+import { NavBar } from "./components/Navbar"
 import { ProductCard } from "./components/ProductCard"
 //CSS
 import './App.css';
@@ -85,8 +83,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <NavigationBar />
+        <NavBar />
         <header className="App-header">
+
+
           <Container>
             <Row >
               {
