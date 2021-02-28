@@ -1,81 +1,77 @@
 import React, { useState, useEffect, Component } from "react";
-
+import {Container, Row, Col} from "react-bootstrap"
+import  ProductCard  from "./ProductCard"
+import axios from 'axios';
 const apiUrl = `http://localhost:8080`;
 
 class Products extends Component {
 
     state = {
-        cart: []
+        products: []
     };
 
-   
-    addToCart() {
-        //get actual cart size
-        return 10;
+    async getProducts() {
+        console.log("fetching products");
+        //await this.init(10);
+        const res = await axios.get(apiUrl + '/products');
+            this.setState({
+                products: res.data
+            });
+        console.log("done fetching products");
     }
+    
+
+    
+      init(n){
+    
+        var data = [];
+        for(var i = 0; i <  n; i++){
+          var product = (
+            { id: i+1 , 
+              name: "Product " + (i + 1),
+              description: "This is a toy",
+              price: 49.99
+            });
+      
+            data.push(product);
+        }
+        this.setState({
+          products: data
+        });
+      }
+
+      componentDidMount() {
+        this.getProducts();
+      }
+
 
 
   render(){
   return (
-    <main>
-      <section>
-        <div className="banner-innerpage">
-          <div className="container">
-            <div className="row justify-content-center">
-              <div className="col-md-6 align-self-center text-center">
-                <h1 className="title">Your Cart</h1>
-                <h6 className="subtitle op-8">
-                  Lots of goodies
-                </h6>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section>
-        <div className="spacer">
-          <div className="container">
-            <div className="row mt-5">
-              <div className="col-lg-9">
-                <div className="row shop-listing">
-                  {this.state.cart.map((product, i) => (
-                    <div className="col-lg-4">
-                      <div className="card shop-hover border-0">
-                        <img
-                          src={"http://localhost:4000/" + product.image}
-                          alt="wrapkit"
-                          className="img-fluid"
-                        />
-                        <div className="card-img-overlay align-items-center">
-                          <button
-                            onClick={(e) => this.addToCart(product._id, 1)}
-                            className="btn btn-md btn-info"
-                          >
-                            Add to cart
-                          </button>
-                        </div>
-                      </div>
-                      <div className="card border-0">
-                        <h6>
-                          <a href="#" className="link">
-                            {product.name}{" "}
-                          </a>
-                        </h6>
-                        <h6 className="subtitle">by Wisdom</h6>
-                        <h5 className="font-medium m-b-30">
-                          $195 /{" "}
-                          <del className="text-muted line-through">$225</del>
-                        </h5>
-                      </div>
-                    </div>
-                  ))}
+       <Container>
+           <section>
+            <div className="banner-innerpage">
+            <div className="container">
+                <div className="row justify-content-center">
+                <div className="col-lg-12 align-self-center text-center">
+                    <h1 className="title">Let's Get Shopping</h1>
+                    
                 </div>
-              </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </section>
-    </main>
+            </div>
+        </section>
+            <Row >
+              {
+              this.state.products.map(product => (
+                <Col xs="12" sm="12" md="6" lg="3" >
+                    <ProductCard  name={product.name} price={product.price} description={product.description}/>
+                </Col>
+
+              ))}
+              
+            </Row>
+        </Container>
   );
 };
 }

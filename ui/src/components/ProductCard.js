@@ -27,6 +27,11 @@ class ProductCard extends Component {
     }; 
   }
 
+  async addToCart() {
+    await axios.get(apiUrl + '/user-create');
+    this.loadUsers();
+  }
+
   addToCart(){
     console.log("adding to cart");
   }
@@ -73,52 +78,5 @@ class ProductCard extends Component {
     }
   }
   
-export {ProductCard}
-/*
-export const Navbar = () => {
-  return ( <Router>
-    <div>
-   
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/users">Users</Link>
-          </li>
-        </ul>
-      </nav>
+export default ProductCard
 
-     
-      <Switch>
-        <Route path="/about">
-          <About />
-        </Route>
-        <Route path="/users">
-          <Users />
-        </Route>
-        <Route path="/">
-          <Home />
-        </Route>
-      </Switch>
-    </div>
-  </Router>
-  )
-}
-*/
-
-function Home() {
-    return "";
-  }
-  
-  function About() {
-    return "";
-  }
-  
-  function Users() {
-    return "";
-  }
