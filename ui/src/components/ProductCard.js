@@ -13,7 +13,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/Form';
 
-
+import NumberFormat from 'react-number-format';
 class ProductCard extends Component {
 
 
@@ -37,24 +37,36 @@ class ProductCard extends Component {
     }));
   }
 
+
   render(){
         return (
-          <Card style={{ width: '18rem', color: "black" }}>
+          
+          
+            <Card
+              bg="info"
+              text="white"
+              className="mb-3"
+
+            >
           <Card.Img variant="top" src="https://via.placeholder.com/150" />
           <Card.Body>
-            <Card.Title>{this.props.name}</Card.Title>
-            <Card.Text>
+            <Card.Text>{this.props.name}</Card.Text>
+            {
+            /*<Card.Text>
               {this.props.description}
-            </Card.Text>
+            </Card.Text>*/
+            }
             <Card.Text>
-              {this.props.price}
+            <NumberFormat value={this.props.price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
             </Card.Text>
-            <Button variant="primary" onClick={() => this.addToCart()}>Add to Cart</Button>
-            <Button variant="primary" onClick={() => this.updateQuantity(1)}>Update</Button>
+            <Button variant="danger" onClick={() => this.addToCart()}>Add to Cart</Button>
+            {
+              /*<Button variant="primary" onClick={() => this.updateQuantity(1)}>Update</Button>*/
+            }
 
           </Card.Body>
         </Card>
-        );
+        )
     }
   }
   

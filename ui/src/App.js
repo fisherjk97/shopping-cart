@@ -55,7 +55,7 @@ class App extends Component {
 
 
   async getProducts() {
-    await this.init(5);
+    await this.init(10);
   }
 
   componentDidMount() {
@@ -68,9 +68,9 @@ class App extends Component {
     for(var i = 0; i <  n; i++){
       var product = (
         { id: i+1 , 
-          name: "Toy",
+          name: "Product " + (i + 1),
           description: "This is a toy",
-          price: 50 * (i + 1)
+          price: 49.99
         });
   
         data.push(product);
@@ -87,13 +87,12 @@ class App extends Component {
       <div className="App">
         <NavigationBar />
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
           <Container>
-            <Row>
+            <Row >
               {
               this.state.products.map(product => (
-                <Col md={{ offset: 3, span: 6 }}>
-                    <ProductCard name={product.name} price={product.price} description={product.description}/>
+                <Col xs="12" sm="12" md="6" lg="3" >
+                    <ProductCard  name={product.name} price={product.price} description={product.description}/>
                 </Col>
 
               ))}
