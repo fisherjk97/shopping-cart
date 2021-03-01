@@ -64,6 +64,19 @@ app.put("/products/", bodyParser, async (req, res) => {
 });
 
 
+app.post("/getProducts", bodyParser, async (req, res) => {
+  var ids = req.body.productId;
+  const products = await Product.find().where('_id').in(ids).exec();
+  //const products = initProducts(10);
+  res.json(products);
+});
+
+app.get("/cart", async (req, res) => {
+  const cart = await Cart.find();
+  res.json(cart);
+});
+
+
 //save products
 app.post("/products", bodyParser, async (req, res) => {
   console.log(req.headers);
@@ -89,26 +102,20 @@ app.get("/cart", async (req, res) => {
 app.post("/cart", bodyParser, async (req, res) => {
   console.log(req.headers);
   console.log(req.body);
+  
+  //find the cart with this id
+  const query = { "id": req.body.id };
+  //set the update
+  var update = new Cart(req.body)
+  // Return the updated document instead of the original document
+  const options = { returnNewDocument: true };
 
-  //var r = req.body;
-
-  /*
-  const product = new Product({
-      id: r.id,  
-      name : r.name,
-      description : r.description,
-      price : r.price
-  });*/
-
-  var cart = new Cart(req.body)
-
-  await  cart.save()
-  .then(item => {
-    res.send("product "  + item.productId + " was updated in the cart database");
-  })
-  .catch(err => {
-  res.status(400).send("unable to save to database");
+  const cart = await Cart.findOneAndUpdate(query, update, {
+    new: true,
+    upsert: true // Make this update into an upsert
   });
+
+  res.json(cart);
 });
 
 //update cart
@@ -117,8 +124,7 @@ app.put("/cart/", bodyParser, async (req, res) => {
   console.log(req.headers);
   console.log(req.body);
   const cart =  await Cart.findByIdAndUpdate(req.body._id, {
-      productId: req.body.productId,
-      quantity : req.body.quantity,
+      cart: req.body.cart,
   }, {new: true});
   
 
