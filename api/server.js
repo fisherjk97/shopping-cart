@@ -28,13 +28,25 @@ function initProducts(n){
 }
 
 
-
+//get products
 app.get("/products", async (req, res) => {
   const products = await Product.find();
   //const products = initProducts(10);
   res.json(products);
 });
 
+
+//get a specific product
+app.get("/products/:id", async (req, res) => {
+  console.log(req.headers);
+  console.log(req.params);
+  console.log(req.body);
+  const product = await Product.findById(req.params.id);
+  //const products = initProducts(10);
+  res.json(product);
+});
+
+//update products
 app.put("/products/", bodyParser, async (req, res) => {
 
   console.log(req.headers);
@@ -48,41 +60,13 @@ app.put("/products/", bodyParser, async (req, res) => {
   
 
   res.json(product);
-
-/*
-  .then(item => {
-    if(!item) {
-        return res.status(404).send({
-            message: "Item not found with id " + req.body.id
-        });
-    }
-    res.send(item);
-}).catch(err => {
-    if(err.kind === 'ObjectId') {
-        return res.status(404).send({
-            message: "Item not found with id " + req.body.id
-        });                
-    }
-    return res.status(500).send({
-        message: "Error updating item with id " + req.body.id
-    });
-    */
 });
 
 
+//save products
 app.post("/products", bodyParser, async (req, res) => {
   console.log(req.headers);
   console.log(req.body);
-
-  //var r = req.body;
-
-  /*
-  const product = new Product({
-      id: r.id,  
-      name : r.name,
-      description : r.description,
-      price : r.price
-  });*/
 
   var product = new Product(req.body)
 
@@ -126,13 +110,20 @@ app.post("/cart", bodyParser, async (req, res) => {
   });
 });
 
-app.post("/cart", async (req, res) => {
+//update cart
+app.put("/cart/", bodyParser, async (req, res) => {
 
+  console.log(req.headers);
+  console.log(req.body);
+  const cart =  await Cart.findByIdAndUpdate(req.body._id, {
+      productId: req.body.productId,
+      quantity : req.body.quantity,
+  }, {new: true});
+  
 
+  res.json(cart);
 
-  await cart.save().then(() => console.log("Cart updated"));
 });
-
 
 
 app.listen(PORT, function() {
