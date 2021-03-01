@@ -15,6 +15,9 @@ import FormControl from 'react-bootstrap/Form';
 
 import NumberFormat from 'react-number-format';
 import NumericInput from 'react-numeric-input';
+
+import axios from 'axios';
+const apiUrl = `http://localhost:8080`;
 class ProductCard extends Component {
 
 
