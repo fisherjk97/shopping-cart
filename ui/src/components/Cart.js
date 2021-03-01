@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Component } from "react";
 import axios from 'axios';
 import {Container, Row, Col} from "react-bootstrap"
-import  ProductCard  from "./ProductCard"
+import  CartProductCard  from "./CartProductCard"
 const apiUrl = `http://localhost:8080`;
 const productApiUrl = apiUrl + '/products';
 const getProductApiUrl = apiUrl + '/getProducts';
@@ -83,7 +83,7 @@ class Cart extends Component {
               {
               this.state.products.map(product => (
                 <Col xs="12" sm="12" md="6" lg="3" >
-                    <ProductCard  name={product.name} price={product.price} description={product.description}/>
+                    <CartProductCard  name={product.name} price={product.price} description={product.description} />
                 </Col>
 
               ))}

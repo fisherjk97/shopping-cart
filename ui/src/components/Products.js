@@ -65,7 +65,7 @@ class Products extends Component {
               {
               this.state.products.map(product => (
                 <Col xs="12" sm="12" md="6" lg="3" >
-                    <ProductCard  name={product.name} price={product.price} description={product.description}/>
+                    <ProductCard  name={product.name} price={product.price} description={product.description} hideButton={true}/>
                 </Col>
 
               ))}
