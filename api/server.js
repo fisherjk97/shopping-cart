@@ -5,7 +5,9 @@ const User = require("./src/User.model");
 const Product = require("./src/Product.model");
 const cors = require('cors');
 const { init } = require("./src/User.model");
-
+bodyParser = require('body-parser').json();
+//app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 const PORT = 8080;
 
@@ -28,19 +30,34 @@ function initProducts(n){
 
 
 app.get("/products", async (req, res) => {
-  //const products = await Product.find();
-  const products = initProducts(10);
+  const products = await Product.find();
+  //const products = initProducts(10);
   res.json(products);
 });
 
-app.post("/products", async (req, res) => {
+app.post("/products", bodyParser, async (req, res) => {
+  console.log(req.headers);
+  console.log(req.body);
+
+  //var r = req.body;
+
+  /*
   const product = new Product({
-      id = req.id,
-      name = req.name,
-      description = req.description,
-      price = req.price
+      id: r.id,  
+      name : r.name,
+      description : r.description,
+      price : r.price
+  });*/
+
+  var product = new Product(req.body)
+
+  await  product.save()
+  .then(item => {
+    res.send("product "  + item.name + " saved to database");
+  })
+  .catch(err => {
+  res.status(400).send("unable to save to database");
   });
-  await product.save().then(() => console.log("Added product"));
 });
 
 app.get("/cart", async (req, res) => {
@@ -49,12 +66,29 @@ app.get("/cart", async (req, res) => {
 });
 
 
-app.post("/cart", async (req, res) => {
-  const cart = new Cart({
-      productId: req.id,
-      quantity: req.quantity
+app.post("/cart", bodyParser, async (req, res) => {
+  console.log(req.headers);
+  console.log(req.body);
+
+  //var r = req.body;
+
+  /*
+  const product = new Product({
+      id: r.id,  
+      name : r.name,
+      description : r.description,
+      price : r.price
+  });*/
+
+  var cart = new Cart(req.body)
+
+  await  cart.save()
+  .then(item => {
+    res.send("cart "  + item.name + " updated in database");
+  })
+  .catch(err => {
+  res.status(400).send("unable to save to database");
   });
-  await cart.save().then(() => console.log("Added product"));
 });
 
 app.post("/cart", async (req, res) => {
