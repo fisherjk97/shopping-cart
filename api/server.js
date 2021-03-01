@@ -35,6 +35,41 @@ app.get("/products", async (req, res) => {
   res.json(products);
 });
 
+app.put("/products/", bodyParser, async (req, res) => {
+
+  console.log(req.headers);
+  console.log(req.body);
+  const product =  await Product.findByIdAndUpdate(req.body._id, {
+      id: req.body.id,
+      name : req.body.name,
+      description : req.body.description,
+      price : req.body.price
+  }, {new: true});
+  
+
+  res.json(product);
+
+/*
+  .then(item => {
+    if(!item) {
+        return res.status(404).send({
+            message: "Item not found with id " + req.body.id
+        });
+    }
+    res.send(item);
+}).catch(err => {
+    if(err.kind === 'ObjectId') {
+        return res.status(404).send({
+            message: "Item not found with id " + req.body.id
+        });                
+    }
+    return res.status(500).send({
+        message: "Error updating item with id " + req.body.id
+    });
+    */
+});
+
+
 app.post("/products", bodyParser, async (req, res) => {
   console.log(req.headers);
   console.log(req.body);
