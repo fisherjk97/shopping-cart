@@ -3,6 +3,7 @@ const app = express();
 const connectDb = require("./src/connection");
 const User = require("./src/User.model");
 const Product = require("./src/Product.model");
+const Cart = require("./src/Cart.model");
 const cors = require('cors');
 const { init } = require("./src/User.model");
 bodyParser = require('body-parser').json();
@@ -103,7 +104,7 @@ app.post("/cart", bodyParser, async (req, res) => {
 
   await  cart.save()
   .then(item => {
-    res.send("cart "  + item.name + " updated in database");
+    res.send("product "  + item.productId + " was updated in the cart database");
   })
   .catch(err => {
   res.status(400).send("unable to save to database");

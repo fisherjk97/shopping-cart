@@ -1,25 +1,83 @@
 import React, { useState, useEffect, Component } from "react";
+import axios from 'axios';
 
 const apiUrl = `http://localhost:8080`;
-
+const productApiUrl = apiUrl + '/products';
+const cartApiUrl = apiUrl + '/cart';
 class Cart extends Component {
 
     state = {
-        cart: []
+        cart: [],
+        products: []
     };
 
-    getCart(){
-        return this.state.cart;
-    }
+    getFishAndChips = async () => {
+      const cart = await fetch(cartApiUrl).then(response => response.json());
+  
+      const productIds = cart.map(c => c.productId),
+      productOpts = { method: 'POST', body: JSON.stringify({ productIds }) };
+  
+      const products = await fetch(productApiUrl, productOpts).then(response => response.json());
+  }
 
+    getCartProducts = async () => {
+      console.log("fetching cart");
+      fetch(cartApiUrl) // Request fish
+          .then(response => response.json())
+          .then(cart => {
+              this.state.cart = cart;
+  
+              const productIds = cart.map(cart => cart.productId);
+  
+
+              console.log(productIds);
+              return fetch( // Request chips using fish ids
+                        productApiUrl,
+                          {
+                              method: 'POST',
+                              body: JSON.stringify({ productIds })
+                          }
+                      );
+          })
+          .then(response => response.json())
+          .then(products => {
+              this.state.products = products;
+          });
+
+          console.log("done fetching cart");
+  }
+
+  componentDidMount() {
+    this.getCartProducts();
+    this.getFishAndChips();
+  }
+
+
+  /*
+    async getCart() {
+      console.log("fetching cart");
+      //await this.init(10);
+      const res = await axios.get(apiUrl + '/products');
+          this.setState({
+              cart: res.data
+          });
+      console.log("done fetching cart");
+  }
+  
+*/
     getCartSize() {
         //get actual cart size
-        return 10;
+        return this.state.cart.length;
     }
 
-    updateQuantity() {
-        //get actual cart size
-        return 10;
+    async updateQuantity() {
+      console.log("fetching products");
+      //await this.init(10);
+      const res = await axios.put(apiUrl + '/cart');
+          this.setState({
+              cart: res.data
+          });
+      console.log("done fetching products");
     }
 
   render(){
