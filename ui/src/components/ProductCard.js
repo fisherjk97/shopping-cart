@@ -30,14 +30,24 @@ class ProductCard extends Component {
     }; 
   }
 
-  async addToCart() {
-    await axios.get(apiUrl + '/user-create');
-    this.loadUsers();
+  addToCart = async () => {
+    const cart = await fetch(cartApiUrl).then(response => response.json());
+    this.state.cart = cart[0].cart;
+    const productId = this.state.cart.map(c => c.productId),
+    productOpts = { 
+      method: 'POST', 
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ productId }) };
+
+    const products = await fetch(getProductApiUrl, productOpts).then(response => response.json());
+    this.state.products = products;
+
+    this.setState({
+      products: products
+  });
   }
 
-  addToCart(){
-    console.log("adding to cart");
-  }
+
 
   updateQuantity(n){
     console.log("updating quantity to " + n);
@@ -68,6 +78,7 @@ class ProductCard extends Component {
             <Card.Title>
             <NumberFormat value={this.props.price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
             </Card.Title>
+            
 
             <Button variant="danger" onClick={() => this.addToCart()}>Add to Cart</Button>
             {
