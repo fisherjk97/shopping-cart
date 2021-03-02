@@ -17,6 +17,8 @@ import NumberFormat from 'react-number-format';
 import NumericInput from 'react-numeric-input';
 
 import axios from 'axios';
+import { connect } from 'react-redux'
+import { faThList } from '@fortawesome/free-solid-svg-icons';
 const apiUrl = `http://localhost:8080`;
 
 const cartApiUrl = apiUrl + "/cart";
@@ -32,9 +34,24 @@ class ProductCard extends Component {
     this.state = { 
       cart: []
     }; 
+
+    this.addToCart = this.addToCart.bind(this)
   }
 
-   addToCart(product){
+
+  addToCart(event) {
+    console.log(this.props);
+    event.preventDefault()
+    this.props.dispatch({
+      type: 'ADD_TO_CART',
+      payload: { id: this.props.id, title: this.props.name, price: this.props.price, quantity: 1 }
+    })
+
+    this.setState({ cart: this.state.cart.concat(this.props)})
+  }
+
+  
+  /*addToCart(product){
     /*const cart = await fetch(cartApiUrl).then(response => response.json());
     this.state.cart = cart[0].cart;
     const productId = this.state.cart.map(c => c.productId),
@@ -49,12 +66,12 @@ class ProductCard extends Component {
     this.setState({
       products: products
     });
-    */
-
+    
     this.state.cart.push(product);
-
+    
   }
-
+  
+  */
 
 
   updateQuantity(n){
@@ -88,7 +105,7 @@ class ProductCard extends Component {
             </Card.Title>
             
 
-            <Button variant="danger" onClick={() => this.addToCart(this.props.id)}>Add to Cart</Button>
+            <Button variant="danger" onClick={this.addToCart}>Add to Cart</Button>
             {
               /*<Button variant="primary" onClick={() => this.updateQuantity(1)}>Update</Button>*/
             }

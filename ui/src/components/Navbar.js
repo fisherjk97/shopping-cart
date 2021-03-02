@@ -38,8 +38,9 @@ export const NavBar = () => {
         <Router>
           <Navbar bg="dark" variant="dark" expand="lg">
           <Link to="/"><Navbar.Brand href="#home">Shopping Cart</Navbar.Brand></Link>
+          <Link to="/products"><Navbar.Brand href="#products">Products</Navbar.Brand></Link>
           <CartButton></CartButton>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          {/*--<Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
               <Link to="/about"><Nav.Link href="#about">About</Nav.Link></Link>
@@ -51,6 +52,7 @@ export const NavBar = () => {
               <Button type="submit">Submit</Button>
             </Form>
           </Navbar.Collapse>
+        -->*/}
         </Navbar>
         <Switch>
         <Route path="/products" exact="/products" component={Product}>

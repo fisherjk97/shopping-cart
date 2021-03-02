@@ -13,6 +13,24 @@ class Products extends Component {
         products: []
     };
 
+    init(n){
+    
+      var data = [];
+      for(var i = 0; i <  n; i++){
+        var product = (
+          { id: i+1 , 
+            name: "Product " + (i + 1),
+            description: "This is a toy",
+            price: 49.99
+          });
+    
+          data.push(product);
+      }
+      this.setState({
+        products: data
+      });
+    }
+
     async getProducts() {
         console.log("fetching products");
         //await this.init(10);
@@ -21,30 +39,16 @@ class Products extends Component {
                 products: res.data
             });
         console.log("done fetching products");
+
+
+
     }
     
 
-    
-      init(n){
-    
-        var data = [];
-        for(var i = 0; i <  n; i++){
-          var product = (
-            { id: i+1 , 
-              name: "Product " + (i + 1),
-              description: "This is a toy",
-              price: 49.99
-            });
-      
-            data.push(product);
-        }
-        this.setState({
-          products: data
-        });
-      }
 
       componentDidMount() {
-        this.getProducts();
+        //this.getProducts();
+        this.init(5);
       }
 
 
@@ -68,7 +72,7 @@ class Products extends Component {
               {
               this.state.products.map(product => (
                 <Col xs="12" sm="12" md="6" lg="3" >
-                    <ProductCard id={product._id} name={product.name} price={product.price} description={product.description} hideButton={true}/>
+                    <ProductCard id={product.id} name={product.name} price={product.price} description={product.description} hideButton={true}/>
                 </Col>
 
               ))}

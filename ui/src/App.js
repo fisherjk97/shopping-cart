@@ -24,7 +24,7 @@ export const Beverage = () => (
   </div>
 )
 
-/*
+
 class App extends Component {
 
 
@@ -33,29 +33,12 @@ class App extends Component {
       <div className="App">
         <NavBar />
         <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <ul>
-          {posts.map(post => (
-            <li key={post.id}>{post.title}</li>
-          ))}
-        </ul>
       </header>
       </div>
     );
   }
-}*/
-
+}
+/*
 class App extends React.Component {
   constructor() {
     super()
@@ -118,8 +101,9 @@ class App extends React.Component {
     )
   }
 }
+*/
 
-
+/*
 const mapStateToProps = state => {
   return { posts: state.posts }
 }
@@ -129,8 +113,5 @@ const mapDispatchToProps = dispatch => {
     dispatch
   }
 }
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-  )(App)
+*/
+export default App
