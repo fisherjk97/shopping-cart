@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -16,14 +16,28 @@ import Badge from 'react-bootstrap/Badge';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {  faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 
+import App from '../App';
 import  Cart  from "./Cart"
-import  Product  from "./Products"
+import  Products  from "./Products"
+import { connect } from "react-redux";
 
 
-export const CartButton = () => (
+function getCartSize(){
+  this.props.dispatch({
+    type: 'GET_CART',
+    payload: []
+  })
+if(this.props.payload == null){
+  return 0;
+}else{
+  return this.props.payload.length;
+}
+}
+
+export const CartButton = (props) => (
     <Link to="/cart">
         <Button variant="primary" onclick="">
-            Cart <FontAwesomeIcon icon={faShoppingCart}/> <Badge variant="light">{getCartSize()}</Badge>
+            Cart <FontAwesomeIcon icon={faShoppingCart}/> <Badge variant="light">{this.props.cart.length}</Badge>
             <span className="sr-only">unread messages</span>
         </Button>
     </Link>
@@ -31,15 +45,22 @@ export const CartButton = () => (
   )
 
 
-export const NavBar = () => {
+  class NavBar extends Component {
 
 
+    getCart = () => {
+      this.props.dispatch({ type: "GET_CART" });
+    };
+
+   
+
+    render(){
         return (
         <Router>
           <Navbar bg="dark" variant="dark" expand="lg">
           <Link to="/"><Navbar.Brand href="#home">Shopping Cart</Navbar.Brand></Link>
           <Link to="/products"><Navbar.Brand href="#products">Products</Navbar.Brand></Link>
-          <CartButton></CartButton>
+          <CartButton cart={this.getCart} ></CartButton>
           {/*--<Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
@@ -55,17 +76,14 @@ export const NavBar = () => {
         -->*/}
         </Navbar>
         <Switch>
-        <Route path="/products" exact="/products" component={Product}>
-          <Product />
-        </Route>
-        <Route path="/users">
-          <Users />
+        <Route path="/products" exact="/products" component={Products}>
+          <Products />
         </Route>
         <Route path="/cart" exact="/cart" component={Cart}>
           <Cart />
         </Route>
         <Route path="/" >
-          <Home />
+          <App />
         </Route>
       </Switch>
         </Router>
@@ -73,58 +91,6 @@ export const NavBar = () => {
     }
   
 
-/*
-export const Navbar = () => {
-  return ( <Router>
-    <div>
-   
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/users">Users</Link>
-          </li>
-        </ul>
-      </nav>
-
-     
-      <Switch>
-        <Route path="/about">
-          <About />
-        </Route>
-        <Route path="/users">
-          <Users />
-        </Route>
-        <Route path="/">
-          <Home />
-        </Route>
-      </Switch>
-    </div>
-  </Router>
-  )
-}
-*/
-
-function getCartSize() {
-    //get actual cart size
-    return 10;
 }
 
-
-
-function Home() {
-    return "";
-  }
-  
-  function About() {
-    return "";
-  }
-  
-  function Users() {
-    return "";
-  }
+export default connect(null)(NavBar)

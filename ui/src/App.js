@@ -6,7 +6,7 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {  faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 
-import { NavBar } from "./components/Navbar"
+import  NavBar  from "./components/Navbar"
 import { ProductCard } from "./components/ProductCard"
 //CSS
 import './App.css';
