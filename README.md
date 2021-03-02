@@ -4,10 +4,10 @@
 
 Intructions:
 
-1. Clone the repo
+1. Clone the repo into your favorite development environment (I used Visual Studio Code)
 
-2. Please run docker-compose up --build
+2. Please run the "docker-compose up --build" command from a terminal
 
-3. Launch the "frontend" container from the docker desktop
+3. Launch the "frontend" container from the docker desktop.
 
-4. Follow the onscreen instructions to start shopping
+4. Follow the onscreen instructions and start shopping
