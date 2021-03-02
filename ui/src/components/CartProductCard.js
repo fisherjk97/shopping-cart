@@ -61,10 +61,19 @@ class CartProductCard extends Component {
 
   decreaseQuantity(event) {
     event.preventDefault()
+
+    if(this.props.quantity > 1){
+
     this.props.dispatch({
       type: 'UPDATE_QUANTITY',
       payload: { index: this.props.index,  quantity: -1 }
     })
+    }else{
+      this.props.dispatch({
+        type: 'REMOVE_FROM_CART',
+        payload: { index: this.props.index }
+      })
+    }
     //this.setState({ quantity: this.state.quantity})
 
   }
@@ -81,7 +90,7 @@ class CartProductCard extends Component {
             >
           <Card.Img variant="top" src="https://via.placeholder.com/150" />
           <Card.Body>
-            <Card.Text>{this.props.name}</Card.Text>
+            <Card.Text>Name: {this.props.name}</Card.Text>
             {
             /*<Card.Text>
               {this.props.description}
@@ -92,8 +101,8 @@ class CartProductCard extends Component {
             </Card.Title>
             
 
-            <Button variant="danger" onClick={this.removeFromCart}>Remove</Button>
-            
+            {/*<Button variant="danger" onClick={this.removeFromCart}>Remove</Button>
+            */}
             <Card.Title>Quantity: {this.props.quantity}</Card.Title>
 
 

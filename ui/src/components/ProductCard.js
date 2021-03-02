@@ -42,11 +42,23 @@ class ProductCard extends Component {
   addToCart(event) {
     console.log(this.props);
     event.preventDefault()
+
+    var idAlreadyExists = (this.state.cart.filter(e => e.id === this.props.id).length > 0);
+      /* vendors contains the element we're looking for */
+    
+
+    if(!idAlreadyExists){
+
     this.props.dispatch({
       type: 'ADD_TO_CART',
       payload: { id: this.props.id, title: this.props.name, price: this.props.price, quantity: 1 }
     })
-
+    }else{
+      this.props.dispatch({
+        type: 'UPDATE_QUANTITY',
+        payload: { id: this.props.id,  quantity: 1 }
+      })
+    }
     this.setState({ cart: this.state.cart.concat(this.props)})
   }
 

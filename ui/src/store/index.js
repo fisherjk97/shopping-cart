@@ -8,6 +8,7 @@ const initialState = {
   
 
     if (action.type === 'ADD_TO_CART') {
+      
         return { 
             ...state,
             cart: state.cart.concat(action.payload)
@@ -16,7 +17,7 @@ const initialState = {
 
     if (action.type === 'UPDATE_QUANTITY') {
         return {...state, cart: state.cart.map((product,index) => {
-            if (index === action.payload.index) {
+            if (index === action.payload.index || (action.payload.id != null && product.id == action.payload.id)) {
               return {...product, quantity: product.quantity + action.payload.quantity}
             };
             return product;
