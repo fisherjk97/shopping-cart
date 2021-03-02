@@ -25,8 +25,10 @@ const initialState = {
     }
 
     if (action.type === 'REMOVE_FROM_CART') {
-        return [...state.cart.slice(0, action.payload.index), ...state.cart.slice(action.payload.index + 1)]
-
+        return {
+            ...state,
+            cart: [...state.cart.slice(0, action.payload.index), ...state.cart.slice(action.payload.index + 1)]
+        }
         
     }
 
