@@ -22,22 +22,10 @@ import  Products  from "./Products"
 import { connect } from "react-redux";
 
 
-function getCartSize(){
-  this.props.dispatch({
-    type: 'GET_CART',
-    payload: []
-  })
-if(this.props.payload == null){
-  return 0;
-}else{
-  return this.props.payload.length;
-}
-}
-
 export const CartButton = (props) => (
     <Link to="/cart">
         <Button variant="primary" onclick="">
-            Cart <FontAwesomeIcon icon={faShoppingCart}/> <Badge variant="light">{this.props.cart.length}</Badge>
+            Cart <FontAwesomeIcon icon={faShoppingCart}/> <Badge variant="light">{props.cart.length}</Badge>
             <span className="sr-only">unread messages</span>
         </Button>
     </Link>
@@ -47,12 +35,18 @@ export const CartButton = (props) => (
 
   class NavBar extends Component {
 
+    constructor(props)
+  {
+    super(props);
+    console.log(props)
+    this.state = { 
+      cart: []
+    }; 
 
-    getCart = () => {
-      this.props.dispatch({ type: "GET_CART" });
-    };
-
-   
+  }
+    
+ 
+    
 
     render(){
         return (
@@ -60,7 +54,8 @@ export const CartButton = (props) => (
           <Navbar bg="dark" variant="dark" expand="lg">
           <Link to="/"><Navbar.Brand href="#home">Shopping Cart</Navbar.Brand></Link>
           <Link to="/products"><Navbar.Brand href="#products">Products</Navbar.Brand></Link>
-          <CartButton cart={this.getCart} ></CartButton>
+          <p>{this.state.cart}</p>
+          <CartButton cart={this.props.cart} ></CartButton>
           {/*--<Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
@@ -83,7 +78,7 @@ export const CartButton = (props) => (
           <Cart />
         </Route>
         <Route path="/" >
-          <App />
+          
         </Route>
       </Switch>
         </Router>
@@ -93,4 +88,14 @@ export const CartButton = (props) => (
 
 }
 
-export default connect(null)(NavBar)
+function Home(){
+  return "";
+}
+
+const mapStateToProps = state => {
+  return { 
+    cart: state.cart 
+  }
+}
+
+export default connect(mapStateToProps)(NavBar)
