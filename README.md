@@ -1,8 +1,6 @@
-# Express-Mongo-Docker-tutorial
-
 # Simple Shopping Cart App
 
-Intructions:
+Instructions:
 
 1. Clone the repo into your favorite development environment (I used Visual Studio Code)
 
