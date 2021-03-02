@@ -32,7 +32,7 @@ class ProductCard extends Component {
     super(props);
     console.log(props)
     this.state = { 
-      cart: []
+      cart: this.props.cart
     }; 
 
     this.addToCart = this.addToCart.bind(this)
@@ -72,6 +72,12 @@ class ProductCard extends Component {
   }
   
   */
+
+
+  componentDidMount(){
+    this.setState({ cart: this.state.cart})
+
+  }
 
 
   updateQuantity(n){

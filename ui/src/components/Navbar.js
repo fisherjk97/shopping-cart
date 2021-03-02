@@ -20,7 +20,7 @@ import App from '../App';
 import  Cart  from "./Cart"
 import  Products  from "./Products"
 import { connect } from "react-redux";
-
+import Jumbotron from 'react-bootstrap/Jumbotron';
 
 export const CartButton = (props) => (
     <Link to="/cart">
@@ -43,7 +43,7 @@ export const CartButton = (props) => (
       cart: []
     }; 
 
-    this.getCart = this.getCart.bind(this)
+
   }
     
  
@@ -79,7 +79,7 @@ export const CartButton = (props) => (
           <Cart />
         </Route>
         <Route path="/" >
-          
+       
         </Route>
       </Switch>
         </Router>
@@ -89,9 +89,8 @@ export const CartButton = (props) => (
 
 }
 
-function Home(){
-  return "";
-}
+
+
 
 const mapStateToProps = state => {
   return { 

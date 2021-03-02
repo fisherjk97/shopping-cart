@@ -7,7 +7,6 @@ import {
   Route,
   Link
 } from "react-router-dom";
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {  faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 
@@ -56,7 +55,9 @@ class App extends Component {
           Looks like your cart is empty. Let's help you with that
         </p>
         <p>
-          <Button variant="primary">Learn more</Button>
+        <a href="/products">
+          <Button variant="primary" >Start Shopping</Button>
+        </a>
         </p>
       </Jumbotron>
         </header>
@@ -73,7 +74,9 @@ class App extends Component {
           You have {this.props.count} item(s) in your cart. Keep up the good work
         </p>
         <p>
-          <Button variant="primary">Learn more</Button>
+        <a href="/products">
+          <Button variant="primary" >Keep Shopping</Button>
+          </a>
         </p>
       </Jumbotron>
         </header>
