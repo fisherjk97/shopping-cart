@@ -18,6 +18,10 @@ import NumericInput from 'react-numeric-input';
 
 import axios from 'axios';
 const apiUrl = `http://localhost:8080`;
+
+const cartApiUrl = apiUrl + "/cart";
+const getProductApiUrl = + "/product";
+
 class ProductCard extends Component {
 
 
@@ -26,12 +30,12 @@ class ProductCard extends Component {
     super(props);
     console.log(props)
     this.state = { 
-      quantity: 0
+      cart: []
     }; 
   }
 
-  addToCart = async () => {
-    const cart = await fetch(cartApiUrl).then(response => response.json());
+   addToCart(product){
+    /*const cart = await fetch(cartApiUrl).then(response => response.json());
     this.state.cart = cart[0].cart;
     const productId = this.state.cart.map(c => c.productId),
     productOpts = { 
@@ -44,7 +48,11 @@ class ProductCard extends Component {
 
     this.setState({
       products: products
-  });
+    });
+    */
+
+    this.state.cart.push(product);
+
   }
 
 
@@ -80,7 +88,7 @@ class ProductCard extends Component {
             </Card.Title>
             
 
-            <Button variant="danger" onClick={() => this.addToCart()}>Add to Cart</Button>
+            <Button variant="danger" onClick={() => this.addToCart(this.props.id)}>Add to Cart</Button>
             {
               /*<Button variant="primary" onClick={() => this.updateQuantity(1)}>Update</Button>*/
             }
@@ -92,5 +100,11 @@ class ProductCard extends Component {
     }
   }
   
-export default ProductCard
+  const mapStateToProps = state => {
+    return { 
+      cart: state.cart 
+    }
+  }
+  
+  export default connect(mapStateToProps)(ProductCard)
 
