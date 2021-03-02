@@ -2,6 +2,9 @@ import React, { useState, useEffect, Component } from "react";
 import {Container, Row, Col} from "react-bootstrap"
 import  ProductCard  from "./ProductCard"
 import axios from 'axios';
+import { connect } from 'react-redux'
+
+
 const apiUrl = `http://localhost:8080`;
 
 class Products extends Component {
@@ -65,7 +68,7 @@ class Products extends Component {
               {
               this.state.products.map(product => (
                 <Col xs="12" sm="12" md="6" lg="3" >
-                    <ProductCard  name={product.name} price={product.price} description={product.description} hideButton={true}/>
+                    <ProductCard id={product._id} name={product.name} price={product.price} description={product.description} hideButton={true}/>
                 </Col>
 
               ))}
@@ -76,4 +79,10 @@ class Products extends Component {
 };
 }
 
-export default Products;
+const mapStateToProps = state => {
+  return { 
+    cart: state.cart 
+  }
+}
+
+export default connect(mapStateToProps)(Products)
