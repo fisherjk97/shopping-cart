@@ -2,17 +2,20 @@ import React, { useState, useEffect, Component } from "react";
 import axios from 'axios';
 import {Container, Row, Col} from "react-bootstrap"
 import  CartProductCard  from "./CartProductCard"
+import { connect } from 'react-redux'
 const apiUrl = `http://localhost:8080`;
 const productApiUrl = apiUrl + '/products';
 const getProductApiUrl = apiUrl + '/getProducts';
 const cartApiUrl = apiUrl + '/cart';
+
+
 class Cart extends Component {
 
     state = {
-        cart: [],
+        cart: this.props.cart,
         products: []
     };
-
+/*
     getCartProducts = async () => {
       const cart = await fetch(cartApiUrl).then(response => response.json());
       this.state.cart = cart[0].cart;
@@ -29,11 +32,11 @@ class Cart extends Component {
         products: products
     });
     }
-
+*/
 
   componentDidMount() {
     //this.getCartProducts();
-    this.getCartProducts();
+    //this.getCartProducts();
   }
 
 
@@ -81,9 +84,9 @@ class Cart extends Component {
         </section>
             <Row >
               {
-              this.state.products.map(product => (
+              this.props.cart.map((product, index) => (
                 <Col xs="12" sm="12" md="6" lg="3" >
-                    <CartProductCard  name={product.name} price={product.price} description={product.description} />
+                    <CartProductCard index={index} id={product.id}  name={product.name} price={product.price} quantity={product.quantity} />
                 </Col>
 
               ))}
@@ -94,4 +97,10 @@ class Cart extends Component {
 };
 }
 
-export default Cart;
+const mapStateToProps = state => {
+  return { 
+    cart: state.cart 
+  }
+}
+
+export default connect(mapStateToProps)(Cart)

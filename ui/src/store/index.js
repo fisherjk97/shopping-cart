@@ -14,6 +14,22 @@ const initialState = {
         }
     }
 
+    if (action.type === 'UPDATE_QUANTITY') {
+        return {...state, cart: state.cart.map((product,index) => {
+            if (index === action.payload.index) {
+              return {...product, quantity: product.quantity + action.payload.quantity}
+            };
+            return product;
+          })
+        }
+    }
+
+    if (action.type === 'REMOVE_FROM_CART') {
+        return [...state.cart.slice(0, action.payload.index), ...state.cart.slice(action.payload.index + 1)]
+
+        
+    }
+
 
     return state
   }

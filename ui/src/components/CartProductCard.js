@@ -15,9 +15,11 @@ import FormControl from 'react-bootstrap/Form';
 
 import NumberFormat from 'react-number-format';
 import NumericInput from 'react-numeric-input';
+import { connect } from 'react-redux'
 
 import axios from 'axios';
 const apiUrl = `http://localhost:8080`;
+
 class CartProductCard extends Component {
 
 
@@ -28,24 +30,44 @@ class CartProductCard extends Component {
     this.state = { 
       quantity: 0
     }; 
+
+    this.removeFromCart = this.removeFromCart.bind(this)
+
+    this.increaseQuantity = this.increaseQuantity.bind(this)
+    this.decreaseQuantity = this.decreaseQuantity.bind(this)
+
   }
 
-  async addToCart() {
-    await axios.get(apiUrl + '/user-create');
-    this.loadUsers();
+
+  removeFromCart(event) {
+    console.log(this.props.index);
+    event.preventDefault()
+    this.props.dispatch({
+      type: 'REMOVE_FROM_CART',
+      payload: { index: this.props.index }
+    })
+
+    //this.setState({ quantity: this.state.quantity})
   }
 
-  removeFromCart(){
-    console.log("removing to cart");
+  increaseQuantity(event) {
+    event.preventDefault()
+    this.props.dispatch({
+      type: 'UPDATE_QUANTITY',
+      payload: { index: this.props.index,  quantity: 1 }
+    })
+
   }
 
-  updateQuantity(n){
-    console.log("updating quantity to " + n);
-    this.setState(state => ({
-      quantity: n
-    }));
-  }
+  decreaseQuantity(event) {
+    event.preventDefault()
+    this.props.dispatch({
+      type: 'UPDATE_QUANTITY',
+      payload: { index: this.props.index,  quantity: -1 }
+    })
+    //this.setState({ quantity: this.state.quantity})
 
+  }
 
   render(){
         return (
@@ -70,10 +92,14 @@ class CartProductCard extends Component {
             </Card.Title>
             
 
-            <Button variant="danger" onClick={() => this.removeFromCart()}>Remove</Button>
+            <Button variant="danger" onClick={this.removeFromCart}>Remove</Button>
             
-            <Button variant="primary" onClick={() => this.updateQuantity(1)}>Update</Button>
+            <Card.Title>Quantity: {this.props.quantity}</Card.Title>
+
+
+            <Button variant="info" onClick={this.decreaseQuantity}>- 1</Button>
             
+            <Button variant="success" onClick={this.increaseQuantity}>+ 1</Button>
          
          
           </Card.Body>
@@ -82,5 +108,11 @@ class CartProductCard extends Component {
     }
   }
   
-export default CartProductCard
+  const mapStateToProps = state => {
+    return { 
+      cart: state.cart 
+    }
+  }
+  
+  export default connect(mapStateToProps)(CartProductCard)
 

@@ -21,7 +21,8 @@ class Products extends Component {
           { id: i+1 , 
             name: "Product " + (i + 1),
             description: "This is a toy",
-            price: 49.99
+            price: 49.99,
+            quantity: 1
           });
     
           data.push(product);
@@ -72,7 +73,7 @@ class Products extends Component {
               {
               this.state.products.map(product => (
                 <Col xs="12" sm="12" md="6" lg="3" >
-                    <ProductCard id={product.id} name={product.name} price={product.price} description={product.description} hideButton={true}/>
+                    <ProductCard id={product.id} name={product.name} price={product.price} description={product.description} />
                 </Col>
 
               ))}
