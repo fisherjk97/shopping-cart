@@ -90,7 +90,7 @@ class CartProductCard extends Component {
             >
           <Card.Img variant="top" src="https://via.placeholder.com/150" />
           <Card.Body>
-            <Card.Text>Name: {this.props.name}</Card.Text>
+            <Card.Text>{this.props.name}</Card.Text>
             {
             /*<Card.Text>
               {this.props.description}

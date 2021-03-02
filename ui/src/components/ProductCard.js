@@ -51,7 +51,7 @@ class ProductCard extends Component {
 
     this.props.dispatch({
       type: 'ADD_TO_CART',
-      payload: { id: this.props.id, title: this.props.name, price: this.props.price, quantity: 1 }
+      payload: { id: this.props.id, name: this.props.name, price: this.props.price, quantity: 1 }
     })
     }else{
       this.props.dispatch({
