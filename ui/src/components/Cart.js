@@ -6,28 +6,7 @@ import { connect } from 'react-redux'
 import NumberFormat from 'react-number-format';
 
 const apiUrl = `http://localhost:8080`;
-const productApiUrl = apiUrl + '/products';
-const getProductApiUrl = apiUrl + '/getProducts';
 const cartApiUrl = apiUrl + '/cart';
-
-export const SubTotal = (props) => (
-  <section>
-            <div className="banner-innerpage">
-            <div className="container">
-                <div className="row justify-content-center">
-                <div className="col-lg-12 align-self-center text-center">
-                    <h1 className="title">Summary</h1>
-                    <h2>${
-                      props.map(li => (li.price * li.quantity)).reduce((sum, val) => sum + val, 0)
-                      }
-                    </h2>
-                  </div>
-                </div>
-            </div>
-            </div>
-        </section>
-  
-)
 
 
 class Cart extends Component {
@@ -42,46 +21,10 @@ class Cart extends Component {
       sum:  0
     }; 
 
-    this.getSubTotal = this.getSubTotal.bind(this)
-
     
   }
 
   
-/*
-    getCartProducts = async () => {
-      const cart = await fetch(cartApiUrl).then(response => response.json());
-      this.state.cart = cart[0].cart;
-      const productId = this.state.cart.map(c => c.productId),
-      productOpts = { 
-        method: 'POST', 
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ productId }) };
-  
-      const products = await fetch(getProductApiUrl, productOpts).then(response => response.json());
-      this.state.products = products;
-
-      this.setState({
-        products: products
-    });
-    }
-*/
-/*
-  componentDidMount() {
-    this.getSubTotal();
-    //this.getCartProducts();
-  }
-*/
-
-  getSubTotal(){
-    
-    return this.state.cart.map(li => (li.price * li.quantity)).reduce((sum, val) => sum + val, 0)
-
-  }
-
- 
-    
-
   render(){
 
     const hasItems = (this.props.cart != null && this.props.cart.length > 0);

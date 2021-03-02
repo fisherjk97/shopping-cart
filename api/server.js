@@ -13,26 +13,27 @@ app.use(cors());
 const PORT = 8080;
 
 function initProducts(n){
-
-  products = [];
+    
+  var data = [];
   for(var i = 0; i <  n; i++){
-    product = new Product(
+    var product = (
       { id: i+1 , 
         name: "Product " + (i + 1),
-        description: "Really cool description",
-        price: 49.99 * (i + 1)
+        description: "This is a really cool product.",
+        price: (49.99 * (i+ 1) * 0.5),
+        quantity: 1
       });
 
-      products.push(product);
+      data.push(product);
   }
-  return products;
+ return data;
 }
 
 
 //get products
 app.get("/products", async (req, res) => {
-  const products = await Product.find();
-  //const products = initProducts(10);
+  //const products = await Product.find();//get from database
+  const products = initProducts(6);
   res.json(products);
 });
 

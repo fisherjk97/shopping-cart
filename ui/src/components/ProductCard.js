@@ -62,28 +62,6 @@ class ProductCard extends Component {
     this.setState({ cart: this.state.cart.concat(this.props)})
   }
 
-  
-  /*addToCart(product){
-    /*const cart = await fetch(cartApiUrl).then(response => response.json());
-    this.state.cart = cart[0].cart;
-    const productId = this.state.cart.map(c => c.productId),
-    productOpts = { 
-      method: 'POST', 
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ productId }) };
-
-    const products = await fetch(getProductApiUrl, productOpts).then(response => response.json());
-    this.state.products = products;
-
-    this.setState({
-      products: products
-    });
-    
-    this.state.cart.push(product);
-    
-  }
-  
-  */
 
 
   componentDidMount(){

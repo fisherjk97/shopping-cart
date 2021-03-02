@@ -48,8 +48,8 @@ class Products extends Component {
 
 
       componentDidMount() {
-        //this.getProducts();
-        this.init(5);
+        this.getProducts();
+        //this.init(5);
       }
 
 

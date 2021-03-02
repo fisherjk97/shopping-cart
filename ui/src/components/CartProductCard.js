@@ -1,20 +1,9 @@
 import React, { Component } from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-
-
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
-import Form from 'react-bootstrap/Form';
-import FormControl from 'react-bootstrap/Form';
 
 import NumberFormat from 'react-number-format';
-import NumericInput from 'react-numeric-input';
 import { connect } from 'react-redux'
 
 import axios from 'axios';
