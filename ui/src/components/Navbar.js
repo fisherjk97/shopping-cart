@@ -43,6 +43,7 @@ export const CartButton = (props) => (
       cart: []
     }; 
 
+    this.getCart = this.getCart.bind(this)
   }
     
  
