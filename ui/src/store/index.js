@@ -29,6 +29,12 @@ const initialState = {
         }
     }
 
+    if (action.type === 'GET_CART') {
+        return { 
+            cart: state.cart
+        }
+    }
+
     return state
   }
 
