@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import axios from 'axios';
-
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {  faShoppingCart } from '@fortawesome/free-solid-svg-icons'
@@ -11,9 +16,10 @@ import { ProductCard } from "./components/ProductCard"
 //CSS
 import './App.css';
 import {Container, Row, Col} from "react-bootstrap"
-
+import  Products  from "./components/Products"
 import { connect } from 'react-redux'
-
+import Button from 'react-bootstrap/Button';
+import Jumbotron from 'react-bootstrap/Jumbotron';
 const apiUrl = `http://localhost:8080`;
 
 
@@ -26,16 +32,55 @@ export const Beverage = () => (
 
 
 class App extends Component {
+  constructor(props)
+  {
+    super(props);
+    console.log(props)
+    this.state = { 
+      count: 0
+    }; 
 
+    //this.getCart = this.getCart.bind(this)
+  }
 
   render() {
-    return (
-      <div className="App">
-        <NavBar />
-        <header className="App-header">
-      </header>
-      </div>
-    );
+
+    if(this.props.count == null || this.props.count == 0){
+      return (
+        <div className="App">
+          <NavBar />
+          <header className="App-header">
+        <Jumbotron className="bg-dark">
+        <h1>Welcome to our humble store</h1>
+        <p>
+          Looks like your cart is empty. Let's help you with that
+        </p>
+        <p>
+          <Button variant="primary">Learn more</Button>
+        </p>
+      </Jumbotron>
+        </header>
+        </div>
+      );
+    }else{
+      return (
+        <div className="App">
+          <NavBar />
+          <header className="App-header">
+        <Jumbotron className="bg-dark">
+        <h1>Welcome to our humble store</h1>
+        <p>
+          You have {this.props.count} item(s) in your cart. Keep up the good work
+        </p>
+        <p>
+          <Button variant="primary">Learn more</Button>
+        </p>
+      </Jumbotron>
+        </header>
+        </div>
+      );
+    }
+
   }
 }
 /*
@@ -103,15 +148,12 @@ class App extends React.Component {
 }
 */
 
-/*
-const mapStateToProps = state => {
-  return { posts: state.posts }
-}
 
-const mapDispatchToProps = dispatch => {
-  return {
-    dispatch
+const mapStateToProps = state => {
+  return { 
+    count: state.cart.length 
   }
 }
-*/
-export default App
+
+
+export default connect(mapStateToProps)(App)

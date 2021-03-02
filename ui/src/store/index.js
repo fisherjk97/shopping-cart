@@ -1,26 +1,11 @@
 import { createStore } from 'redux'
 
 const initialState = {
-    posts: [{id: 1, title: 'Test Post'}],
     cart: [],
-    loginModal: {
-        open: false
-    }
   }
   
   const reducer = (state = initialState, action) => {
-    if (action.type === 'ADD_POST') {
-        return Object.assign({}, state, {//clone the initial state
-          posts: state.posts.concat(action.payload)
-        })
-      }
-
-    if (action.type === 'LOAD_POSTS') {
-    return {
-        ...state,
-        posts: state.posts.concat(action.payload)
-    }
-    }
+  
 
     if (action.type === 'ADD_TO_CART') {
         return { 
@@ -29,11 +14,6 @@ const initialState = {
         }
     }
 
-    if (action.type === 'GET_CART') {
-        return { 
-            cart: state.cart
-        }
-    }
 
     return state
   }
